@@ -1,0 +1,17 @@
+{
+  "name": "Estrutura de Inicio de Um Projeto",
+  "description": "Projeto php de estudos",
+  "license": "Apache-2.0",
+  "type": "project",
+  "authors": [
+    {
+      "name": "Alex Rodrigues Moreira",
+      "email": "rodriguesalex793@gmail.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "App\\":"app"
+    }
+  }
+}

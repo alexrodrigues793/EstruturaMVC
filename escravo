@@ -1,0 +1,164 @@
+<?php
+
+function mensagemInformacao($mensagem)
+{
+	echo("\n \033[1;33m $mensagem \033[0m \n\n");
+}
+
+function mensagemSucesso($mensagem)
+{
+	echo("\n \033[0;32m $mensagem \033[0m \n\n");
+}
+
+function mensagemErro($mensagem)
+{
+	echo("\n \033[0;31m $mensagem \033[0m \n\n");
+}
+
+function criarDiretorio($arrayDiretorio, $path)
+{
+	// cria um loop para criar as pastas, menos o ultima celula da array
+	for ($count = 0; $count < count($arrayDiretorio) - 1; $count++) {
+		// configura o diretório
+		$path .= '/'.$arrayDiretorio[$count];
+
+		// cria o diretório
+		if (!file_exists($path))
+			mkdir($path, 0777);
+	}
+
+	return $path;
+}
+
+function criarArquivo($path, $conteudo)
+{
+	// verifica se o arquivo não existe
+	if (!file_exists($path)) {
+
+		// cria o arquivo
+		$arquivo = fopen($path, "a+");
+
+		// escreve o conteúdo no arquivo
+		fwrite($arquivo, $conteudo);
+
+		// fecha o arquivo
+		fclose($arquivo);
+
+		return true;
+	} else {
+		return false;
+	}
+}
+
+
+
+
+
+// verifica se o pedido é para criar um controlador
+if ($argv[1] == "criar:controlador") {
+	// seta o path dos controladores
+	$path = 'app/Controllers';
+
+	// envia mensagem do que está acontecendo
+	mensagemInformacao("Criando o Controlador {$argv[2]}Controller...");
+
+	// transforma as informações passadas em array
+	$arrayControlador = explode('/', $argv[2]);
+
+	// verifica se o controlador será criado dentro de uma pasta
+	if (count($arrayControlador) > 1) {
+
+		// cria as pastas do controlador e configura o path
+		$path = criarDiretorio($arrayControlador, $path);
+		$path = $path.'/'.$arrayControlador[count($arrayControlador) - 1].'Controller.php';
+
+		// configura o conteúdo do controlador
+		$conteudo = "<?php\n\nnamespace App\Controllers";
+
+		for ($count = 0; $count < count($arrayControlador) - 1; $count++) {
+			$conteudo .= "\\".$arrayControlador[$count];
+		}
+
+		$conteudo .=	";\n\nuse App\Controllers\Controller;\n\nclass " . $arrayControlador[count($arrayControlador) - 1] . "Controller extends Controller\n{}";
+		
+		// cria o controlador
+		if (criarArquivo($path, $conteudo)) {
+			// exibe mensagem de que o controlador foi criado
+			mensagemSucesso("Controlador criado!");
+		} else {
+			mensagemErro("Este controlador já existe!");
+		}
+	} else {
+		// configura o pth do controlador
+		$path .= '/'.$argv[2].'Controller.php';
+
+		// configura o conteúdo do controlador
+		$conteudo = "<?php\n\nnamespace App\Controllers;";
+
+		$conteudo .=	"\n\nuse App\Controllers\Controller;\n\nclass " . $argv[2] . "Controller extends Controller\n{}";
+		
+		if (criarArquivo($path, $conteudo)) {
+			// exibe mensagem de que o controlador foi criado
+			mensagemSucesso("Controlador criado!");
+		} else {
+			mensagemErro("Este controlador já existe!");
+		}
+	}
+
+
+
+
+
+
+// verifica se o pedido é para criar um modelo
+} elseif ($argv[1] == "criar:modelo") {
+	// seta o path dos modelos
+	$path = 'app/Models';
+
+	// envia mensagem do que está acontecendo
+	mensagemInformacao("Criando o Modelo {$argv[2]}...");
+
+	// transforma as informações passadas em array
+	$arrayModelo = explode('/', $argv[2]);
+
+	// verifica se o modelo será criado dentro de uma pasta
+	if (count($arrayModelo) > 1) {
+
+		// cria as pastas do modelo e configura o path
+		$path = criarDiretorio($arrayModelo, $path);
+		$path = $path.'/'.$arrayModelo[count($arrayModelo) - 1].'.php';
+
+		// configura o conteúdo do modelo
+		$conteudo = "<?php\n\nnamespace App\Models";
+
+		for ($count = 0; $count < count($arrayModelo) - 1; $count++) {
+			$conteudo .= "\\".$arrayModelo[$count];
+		}
+
+		$conteudo .=	";\n\nuse App\Models\Model;\n\nclass " . $arrayModelo[count($arrayModelo) - 1] . " extends Model\n{}";
+
+		// cria o modelo
+		if (criarArquivo($path, $conteudo)) {
+			// exibe mensagem de que o modelo foi criado
+			mensagemSucesso("Modelo criado!");
+		} else {
+			mensagemErro("Este modelo já existe!");
+		}
+	} else {
+		// configura o path do modelo
+		$path .= '/'.$argv[2].'.php';
+
+		// configura o conteúdo do modelo
+		$conteudo = "<?php\n\nnamespace App\Models;";
+
+		$conteudo .=	"\n\nuse App\Models\Model;\n\nclass " . $argv[2] . " extends Model\n{}";
+		
+		// cria o modelo
+		if (criarArquivo($path, $conteudo)) {
+			// exibe mensagem de que o modelo foi criado
+			mensagemSucesso("Modelo criado!");
+		} else {
+			mensagemErro("Este modelo já existe!");
+		}
+	}
+}
