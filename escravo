@@ -22,7 +22,7 @@ function criarDiretorio($arrayDiretorio, $path)
 		// configura o diretório
 		$path .= '/'.$arrayDiretorio[$count];
 
-		// cria o diretório
+		// verifica se o diretório nao existe e cria o diretório
 		if (!file_exists($path))
 			mkdir($path, 0777);
 	}
@@ -73,13 +73,13 @@ if ($argv[1] == "criar:controlador") {
 		$path = $path.'/'.$arrayControlador[count($arrayControlador) - 1].'Controller.php';
 
 		// configura o conteúdo do controlador
-		$conteudo = "<?php\n\nnamespace App\Controllers";
+		$conteudo = "<?php\nnamespace App\Controllers";
 
 		for ($count = 0; $count < count($arrayControlador) - 1; $count++) {
 			$conteudo .= "\\".$arrayControlador[$count];
 		}
 
-		$conteudo .=	";\n\nuse App\Controllers\Controller;\n\nclass " . $arrayControlador[count($arrayControlador) - 1] . "Controller extends Controller\n{}";
+		$conteudo .=	";\n\nclass " . $arrayControlador[count($arrayControlador) - 1] . "Controller\n{}";
 		
 		// cria o controlador
 		if (criarArquivo($path, $conteudo)) {
@@ -93,9 +93,9 @@ if ($argv[1] == "criar:controlador") {
 		$path .= '/'.$argv[2].'Controller.php';
 
 		// configura o conteúdo do controlador
-		$conteudo = "<?php\n\nnamespace App\Controllers;";
+		$conteudo = "<?php\nnamespace App\Controllers;";
 
-		$conteudo .=	"\n\nuse App\Controllers\Controller;\n\nclass " . $argv[2] . "Controller extends Controller\n{}";
+		$conteudo .=	"\n\nclass " . $argv[2] . "Controller extends Controller\n{}";
 		
 		if (criarArquivo($path, $conteudo)) {
 			// exibe mensagem de que o controlador foi criado
@@ -129,13 +129,13 @@ if ($argv[1] == "criar:controlador") {
 		$path = $path.'/'.$arrayModelo[count($arrayModelo) - 1].'.php';
 
 		// configura o conteúdo do modelo
-		$conteudo = "<?php\n\nnamespace App\Models";
+		$conteudo = "<?php\nnamespace App\Models";
 
 		for ($count = 0; $count < count($arrayModelo) - 1; $count++) {
 			$conteudo .= "\\".$arrayModelo[$count];
 		}
 
-		$conteudo .=	";\n\nuse App\Models\Model;\n\nclass " . $arrayModelo[count($arrayModelo) - 1] . " extends Model\n{}";
+		$conteudo .=	";\n\nuse PDO;\nuse App\Core\Db;\n\nclass " . $arrayModelo[count($arrayModelo) - 1] . " extends \App\Core\Model\n{\n\t// nome da tabela no banco de dados\n\tprotected static \$table = \"tabela\";\n\n\tpublic static function save(\$data) \n\t{}\n\n\tpublic static function update(\$data) \n\t{}\n\n\tpublic static function delete(\$id) \n\t{}\n\n}";
 
 		// cria o modelo
 		if (criarArquivo($path, $conteudo)) {
@@ -149,9 +149,9 @@ if ($argv[1] == "criar:controlador") {
 		$path .= '/'.$argv[2].'.php';
 
 		// configura o conteúdo do modelo
-		$conteudo = "<?php\n\nnamespace App\Models;";
+		$conteudo = "<?php\nnamespace App\Models;";
 
-		$conteudo .=	"\n\nuse App\Models\Model;\n\nclass " . $argv[2] . " extends Model\n{}";
+		$conteudo .=	"\n\nuse PDO;\nuse App\Core\Db;\n\nclass " . $argv[2] . " extends \App\Core\Model\n{\n\t// nome da tabela no banco de dados\n\tprotected static \$table = \"tabela\";\n\n\tpublic static function save(\$data) \n\t{}\n\n\tpublic static function update(\$data) \n\t{}\n\n\tpublic static function delete(\$id) \n\t{}\n\n}";
 		
 		// cria o modelo
 		if (criarArquivo($path, $conteudo)) {

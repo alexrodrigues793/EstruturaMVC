@@ -1,10 +1,13 @@
 <?php
 namespace App\Controllers;
 
-class ErrorController extends Controller
+/**
+ * Controlador que exibe uma página de erro
+ */
+class ErrorController
 {
-	public function notFound()
-	{
-		return $this->render('site/404.php');
-	}
+    public function error($request)
+    {
+        view('404');
+    }
 }

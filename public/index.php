@@ -1,18 +1,15 @@
 <?php
 require_once "../vendor/autoload.php";
-require_once "../setup/app.php";
+require_once "../config/app.php";
 
 use App\Core\Request;
 use App\Core\Router;
 
-// functions
-require_once "../setup/functions.php";
-
-// Router
+// cria um objeto da aplicação
 $app = new Router(new Request());
 
-// routes
-require_once "../setup/routes.php";
+// adiciona as rotas
+require_once "../config/routes.php";
 
-// start app
-echo $app->run();
+// inicia a aplicação
+$app->run();
