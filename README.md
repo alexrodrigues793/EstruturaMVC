@@ -13,6 +13,17 @@ Você também pode passar uma função ao invés de um controlador, como:
 `Router::addGet("book/{id}", function($request){  
   view('welcome');  
 });`  
+
+Você tembém pode criar um grupo de rotas utilizando um prefixo, exemplo:
+`Router::group("dashboard", function() {
+    Router::addGet("/", "DashboardController@getIndex"); 
+    
+    Router::group("post", function() {    
+        Router::addGet("/", "PostController@getIndex");
+                                  
+        Router::addGet("/post/{id}", "PostController@getPost");
+    });
+});`
   
 Use os métodos addGet(), addPost(), addPut(), addPath() e addDelete(), para adicionar a rota de acordo com o tipo de requisição.
 

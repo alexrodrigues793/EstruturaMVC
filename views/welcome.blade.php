@@ -27,6 +27,19 @@
 
                 Você também pode passar uma função ao invés de um controlador, como:<br>
                 <code>Router::addGet("book/{id}", function($request){<br>&emsp; view('welcome');<br> });</code><br><br>
+
+                Você também pode adicionar um grupo de rotas baseado em um prefixo, exemplo:<br>
+                <code>
+                    Router::group("dashboard", function() {<br>
+                        &emsp;Router::addGet("/", "DashboardController@getIndex");<br>
+                        <br>
+                        &emsp;Router::group("post", function() {<br>
+                            &emsp;&emsp;Router::addGet("/", "PostController@getIndex");<br>
+                            <br>                            
+                            &emsp;&emsp;Router::addGet("/post/{id}", "PostController@getPost");<br>
+                        &emsp;});<br>
+                    });
+                </code><br><br>
                 
                 Use os métodos addGet(), addPost(), addPut(), addPath() e addDelete(), para adicionar a rota de acordo com o tipo de requisição.
             </p>

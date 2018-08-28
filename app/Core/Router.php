@@ -14,6 +14,7 @@ class Router
     private static $putRoutes = array();
     private static $pathRoutes = array();
     private static $deleteRoutes = array();
+    private static $_temp_group_name = array();
 
     public function __construct(Request $request)
     {
@@ -162,6 +163,24 @@ class Router
     {
         self::addRoute($route, $controller, self::$deleteRoutes);
     }
+
+    /**
+     * Adiciona um grupo de rotas
+     * 
+     * @param $prefix Prefixo da rota
+     * @param $callback Função passada que adiciona as rotas ou grupos de rotas
+     */
+    public static function group($prefix, $callback)
+    {
+        // adiciona o nome do primeiro prefixo a o array de nomes de grupos de rotas
+        array_push(self::$_temp_group_name, $prefix);
+
+        // chama a função passada que contem as chamadas que inserem as rotas
+        call_user_func($callback);
+
+        // remove o ultimo elemento que contem o nome do grupo da rota
+        array_pop(self::$_temp_group_name);
+    }
     
     /**
      * Insere uma rota e suas informações em sua respectiva array
@@ -172,7 +191,24 @@ class Router
      */
     private static function addRoute($route, $controller, &$routes)
     {
-        $route      = trim($route, "/");
+        $route = trim($route, "/");
+
+        // se for adicionar um grupo de rotas, é verificado se existe elementos
+        // no array de nomes temporario do grupo de rotas
+        if (!empty(self::$_temp_group_name))
+        {
+            $prefix = "";
+
+            // pega cada elemento do grupo de rotas
+            foreach (self::$_temp_group_name as $group)
+            {
+                $prefix .= $group."/";
+            }
+            
+            // cria o array baseado nos prefixos do array de nomes temporario do grupo de rotas
+            $prefix = trim($prefix, "/");
+            $route = trim($prefix."/".$route, "/");
+        }
         
         // se foi passado uma string com o controller e o método
         // como "HomeController@getIndex"
