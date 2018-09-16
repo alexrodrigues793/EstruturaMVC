@@ -1,21 +1,45 @@
 <?php
-// inicia a seção
+/**
+ * Inicia a sessão
+ */
 session_start();
 
-// set root path
-define("ROOT_PATH", __DIR__."/../");
-
-// set views path for blade
-define("VIEWS_PATH", ROOT_PATH."views/");
-
-// set views cache path for blade
-define("VIEWS_CACHE_PATH", ROOT_PATH."storage/Blade/cache/");
-
-// Reporta todos os errors Exceçẽs
-error_reporting(E_ALL);
-
-// Define a hora local
+/**
+ * Configura a hora local
+ */
 date_default_timezone_set('America/Sao_Paulo');
 
-// include functions
+/**
+ * Define o tipo de resposta da aplicação como 'application/json',
+ * para pode criar uma API
+ *
+ * Para utilizar descomente a linha abaixo
+ */
+// header("Content-Type: application/json");
+
+/** 
+ * Reporta todos os errors e Exceções
+ */
+error_reporting(E_ALL);
+
+/**
+ * Define o path da aplicação
+ */
+define("ROOT_PATH", __DIR__."/../");
+
+/** 
+ * Define o caminho das views para o template
+ * engine Blade
+ */
+define("VIEWS_PATH", ROOT_PATH."views/");
+
+/**
+ * Define o caminho da pasta de cache para
+ * o template engine Blade
+ */
+define("VIEWS_CACHE_PATH", ROOT_PATH."storage/Blade/cache/");
+
+/**
+ * Inclui o arquivo que contem as funções globais
+ */
 include "functions.php";
