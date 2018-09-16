@@ -18,6 +18,19 @@ function view($page, $parameters = [])
 }
 
 /**
+ * Função que retorna um objeto JSON
+ *
+ * @param $data Array que será convertida para JSON
+ * @param $responseCode Codigo de resposta do servidor, padrão igual a 200 que é OK
+ */
+function returnJSON(array $data, int $responseCode = 200)
+{
+	header("Content-Type: application/json");
+	http_response_code($responseCode);
+	echo json_encode($data);
+}
+
+/**
  * Função que redireciona para outra pagina
  * 
  * @param $url Url da página para renderizar
