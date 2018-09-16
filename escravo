@@ -89,13 +89,13 @@ if ($argv[1] == "criar:controlador") {
 			mensagemErro("Este controlador já existe!");
 		}
 	} else {
-		// configura o pth do controlador
+		// configura o path do controlador
 		$path .= '/'.$argv[2].'Controller.php';
 
 		// configura o conteúdo do controlador
 		$conteudo = "<?php\nnamespace App\Controllers;";
 
-		$conteudo .=	"\n\nclass " . $argv[2] . "Controller extends Controller\n{}";
+		$conteudo .=	"\n\nclass " . $argv[2] . "Controller\n{}";
 		
 		if (criarArquivo($path, $conteudo)) {
 			// exibe mensagem de que o controlador foi criado
