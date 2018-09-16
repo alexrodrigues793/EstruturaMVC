@@ -135,7 +135,7 @@ if ($argv[1] == "criar:controlador") {
 			$conteudo .= "\\".$arrayModelo[$count];
 		}
 
-		$conteudo .=	";\n\nuse PDO;\nuse App\Core\Db;\n\nclass " . $arrayModelo[count($arrayModelo) - 1] . " extends \App\Core\Model\n{\n\t// nome da tabela no banco de dados\n\tprotected static \$table = \"tabela\";\n\n\tpublic static function save(\$data) \n\t{}\n\n\tpublic static function update(\$data) \n\t{}\n\n\tpublic static function delete(\$id) \n\t{}\n\n}";
+		$conteudo .=	";\n\nuse PDO;\nuse App\Core\Db;\n\nclass " . $arrayModelo[count($arrayModelo) - 1] . "\n{\n\t// nome da tabela no banco de dados\n\tprotected static \$table = \"tabela\";\n\n\tpublic static function save(\$data) \n\t{}\n\n\tpublic static function update(\$data) \n\t{}\n\n\tpublic static function delete(\$id) \n\t{}\n\n}";
 
 		// cria o modelo
 		if (criarArquivo($path, $conteudo)) {
@@ -151,7 +151,7 @@ if ($argv[1] == "criar:controlador") {
 		// configura o conteúdo do modelo
 		$conteudo = "<?php\nnamespace App\Models;";
 
-		$conteudo .=	"\n\nuse PDO;\nuse App\Core\Db;\n\nclass " . $argv[2] . " extends \App\Core\Model\n{\n\t// nome da tabela no banco de dados\n\tprotected static \$table = \"tabela\";\n\n\tpublic static function save(\$data) \n\t{}\n\n\tpublic static function update(\$data) \n\t{}\n\n\tpublic static function delete(\$id) \n\t{}\n\n}";
+		$conteudo .=	"\n\nuse PDO;\nuse App\Core\Db;\n\nclass " . $argv[2] . "\n{\n\t// nome da tabela no banco de dados\n\tprotected static \$table = \"tabela\";\n\n\tpublic static function save(\$data) \n\t{}\n\n\tpublic static function update(\$data) \n\t{}\n\n\tpublic static function delete(\$id) \n\t{}\n\n}";
 		
 		// cria o modelo
 		if (criarArquivo($path, $conteudo)) {
