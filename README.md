@@ -50,7 +50,7 @@ Após criar o controlador, adicione um método publico para ser chamado através
 public function getIndex($request){}
 ```
   
-Os métodos que serão chamados através da rota que você cadastrou, recebem um objeto Request. Neste objeto estão contidos todos os parametros GET e POST, os arquivos FILE e COOKIES, além dos parametros passados pela url cadastrados na rota com os símbolos '{}' exemplo: ```php book/{id}```.  
+Os métodos que serão chamados através da rota que você cadastrou, recebem um objeto Request. Neste objeto estão contidos todos os parametros GET e POST, os arquivos FILE e COOKIES, além dos parametros passados pela url cadastrados na rota com os símbolos '{}' exemplo: ```book/{id}```.  
   
 Para acessar os parametros **GET, POST e URL** passados para o método utilize a variavel $request e chame o método getParameter(), como:  
 ```php
@@ -77,9 +77,9 @@ php escravo criar:modelo SubpastaSeHouver/NomeDoModelo
   
 O modelo será criado na pasta "app/Models/SubpastaSeHouver".  
   
-Após criar o modelo, altere a variavel statica ```php $table``` com o nome da tabela que o modelo representará.  
+Após criar o modelo, altere a variavel statica ```$table``` com o nome da tabela que o modelo representará.  
   
-Quando for implementar os métodos estáticos do modelo, use a variavel ```php $table``` exemplo:  
+Quando for implementar os métodos estáticos do modelo, use a variavel ```$table``` exemplo:  
 ```php
 public static function getByName($name) {  
  $stmt = Db::getConnection()->prepare("SELECT * FROM ".self::$table." WHERE name = :name");  
@@ -92,7 +92,8 @@ public static function getByName($name) {
 
 #### Como usar
 
-Para usar um modelo, adicione: ```php use App\Models\NomeDoModelo;``` em cima do seu controlador, depois use os métodos staticos da classe modelo, exemplo: ```php $usuarios = NomeDoModelo::getAll();```.
+Para usar um modelo, adicione: ```use App\Models\NomeDoModelo;``` em cima do seu controlador, depois use os métodos staticos da classe modelo, exemplo: ```php
+$usuarios = NomeDoModelo::getAll();```.
 
 \# Views
 --------
@@ -100,7 +101,7 @@ Para usar um modelo, adicione: ```php use App\Models\NomeDoModelo;``` em cima do
 As views estão localizadas na pasta views e nas suas subpastas. Para renderizar uma view no controlador utilize o método de renderização:  
 ```php view("subpastasehouver.nomedaview", ['parametro' => 'valor do parametro']);```  
   
-Para criar uma view, adicione um arquivo ```php nomedaview.blade.php``` na pasta 'views'  
+Para criar uma view, adicione um arquivo ```nomedaview.blade.php``` na pasta 'views'  
   
 
 #### Como usar
