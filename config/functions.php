@@ -25,7 +25,6 @@ function view($page, $parameters = [])
  */
 function returnJSON(array $data, int $responseCode = 200)
 {
-	header("Content-Type: application/json");
 	http_response_code($responseCode);
 	echo json_encode($data);
 }
