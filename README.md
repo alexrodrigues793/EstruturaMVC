@@ -99,7 +99,9 @@ $usuarios = NomeDoModelo::getAll();```.
 --------
 
 As views estão localizadas na pasta views e nas suas subpastas. Para renderizar uma view no controlador utilize o método de renderização:  
-```php view("subpastasehouver.nomedaview", ['parametro' => 'valor do parametro']);```  
+```php
+view("subpastasehouver.nomedaview", ['parametro' => 'valor do parametro']);
+``` 
   
 Para criar uma view, adicione um arquivo ```nomedaview.blade.php``` na pasta 'views'  
   
