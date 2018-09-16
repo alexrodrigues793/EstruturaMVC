@@ -7,7 +7,6 @@ class HomeController
 {
     public function getIndex($request)
     {
-        //var_dump(Contacts::getAll());
-        view('welcome', ['title' => 'Estrutura MVC']);
+        return view('welcome');
     }
 }
