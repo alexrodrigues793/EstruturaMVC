@@ -58,7 +58,7 @@ class Request
      */
     public function getParameter($parameter): string
     {
-        return $this->parameters[$parameter] ? urldecode($this->parameters[$parameter]) : "";
+        return isset($this->parameters[$parameter]) ? urldecode($this->parameters[$parameter]) : "";
     }
 
     /**
