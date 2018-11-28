@@ -47,26 +47,41 @@ class File
         $this->name = $name.$this->getExtension();
     }
 
+    /**
+     * Retorna o tipo do arquivo
+     */
     public function getType()
     {
         return $this->type;
     }
 
+    /**
+     * Retorna a extensão do arquivo
+     */
     public function getExtension()
     {
         return '.'.pathinfo($this->getName(), PATHINFO_EXTENSION);
     }
 
+    /**
+     * Retorna o nome temporário do arquivo
+     */
     public function getTempName()
     {
         return $this->tmp_name;
     }
 
+    /**
+     * Caso houver algum erro, retorna o codigo do erro
+     */
     public function getError()
     {
         return $this->error;
     }
 
+    /**
+     * Retorna o tamnaho do arquivo
+     */
     public function getSize()
     {
         return $this->size;

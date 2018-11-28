@@ -28,55 +28,49 @@ class Router
     {
         // se a requisição for GET
         if ($this->request->getRequestType() == "GET")
-        {
-            return $this->searchRoute(self::$getRoutes, $this->request->getUrl());
-        }
+            return $this->searchRoute(self::$getRoutes);
 
         // se a requisição for POST
         if ($this->request->getRequestType() == "POST")
-        {
-            return $this->searchRoute(self::$postRoutes, $this->request->getUrl());
-        }
+            return $this->searchRoute(self::$postRoutes);
 
         // se a requisição for PUT
         if ($this->request->getRequestType() == "PUT")
-        {
-            return $this->searchRoute(self::$putRoutes, $this->request->getUrl());
-        }
+            return $this->searchRoute(self::$putRoutes);
 
         // se a requisição for PATH
         if ($this->request->getRequestType() == "PATH")
-        {
-            return $this->searchRoute(self::$pathRoutes, $this->request->getUrl());
-        }
+            return $this->searchRoute(self::$pathRoutes);
 
         // se a requisição for DELETE
         if ($this->request->getRequestType() == "DELETE")
-        {
-            return $this->searchRoute(self::$deleteRoutes, $this->request->getUrl());
-        }
+            return $this->searchRoute(self::$deleteRoutes);
     }
 
     /**
-     * Método privado que busca uma rota
+     * Método privado que busca uma rota e em seguida chama o método que
+     * executa o controlador ou a função da rota
+     * 
+     * @param $routes Array com as rotas cadastradas onde será feita busca
      */
-    private function searchRoute(&$routes, $url)
+    private function searchRoute(&$routes)
     {
         foreach ($routes as $route)
         {
             // verifica se a rota é compatível com a url da pagina
-            if (preg_match("@^$route[regexRoute]$@", $url))
+            if (preg_match("@^$route[regexRoute]$@", $this->request->getUrl()))
             {
                 // verifica se é uma função chamavel ao invés de controlador
                 if (is_callable($route["action"]))
                     return $this->executeCallableFunction($route);
-                else
-                    return $this->executeController($route);
+                
+                // executa o controlador
+                return $this->executeController($route);
             }
         }
 
-        // se a rota não foi encontrada executa o controlador de erro
-        return $this->executeController(["route" => "error", "controller" => "ErrorController", "action" => "error"]);
+        // se a rota não foi encontrada exibe uma view 404
+        return view('404');
     }
 
     /**

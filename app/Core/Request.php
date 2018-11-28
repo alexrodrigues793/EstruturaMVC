@@ -25,7 +25,7 @@ class Request
      * 
      * @return $this->url
      */
-    public function getUrl(): string
+    public function getUrl()
     {
         return $this->url;
     }
@@ -35,7 +35,7 @@ class Request
      * 
      * @return string Tipo de requisição
      */
-    public function getRequestType(): string
+    public function getRequestType()
     {
         if (!isset($_POST["REQUEST_METHOD"]))
             return $_SERVER["REQUEST_METHOD"];
@@ -56,7 +56,7 @@ class Request
      * @param mixed $parameter Nome do paramentro
      * @return $this->paramenters[$parameter]
      */
-    public function getParameter($parameter): string
+    public function getParameter($parameter)
     {
         return isset($this->parameters[$parameter]) ? urldecode($this->parameters[$parameter]) : "";
     }
@@ -97,7 +97,7 @@ class Request
     {
         if (isset($_FILES[$name]))
             return new File($_FILES[$name]);
-        else
-            return null;
+        
+        return null;
     }
 }
